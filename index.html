@@ -9,12 +9,37 @@
      <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
         
     <style>
+                    #square {
+                background-color: limegreen;
+                border-radius: 20px;
+                width: 300px;
+                height: 300px;
+            }
         
     </style>
 
     <title>Arduino to webpage</title>
 </head>
 <body>
+    <h1>Communicating from an Arduino to Node.js</h1>
+
+    <!-- This square changes when Arduino is being used.    -->
+    <div id="square"></div>
     
+    <script>
+        
+    // receives messages using socket libary.
+    var socket = io();
+
+    // when data-event happens, data-function runs.
+    socket.on('data', function(data) {
+        
+        console.log(data);
+        
+        document.getElementById('square').style.opacity = data+"%"; 
+
+    });
+    
+    </script>
 </body>
 </html>

@@ -42,29 +42,26 @@ var app = http.createServer(function(req, res) {
     res.end(index);
 });
 
-// opens up the port.
-// specify the location of the port.
-var port = new SerialPort('/dev/tty.wchusbserialfa1410',{ 
 
-    // specify settings.
-    baudRate: 9600,
-    dataBits: 8,
-    parity: 'none',
-    stopBits: 1,
-    flowControl: false
+// io connection-setup.
+var io = require('socket.io').listen(app);
+
+// wait for connection event.
+io.on('connection', function(socket) {
+    
+    // when connection happens, return 'Node is listening to port'.
+    console.log('Node is listening to port');
+    
 });
 
-// Attach port to parser.
-port.pipe(parser);
-
-
-
-// Create server called 'app'.
-var app = http.createServer(function(req, res) {
-
-    // returns value and context index.html-file.
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(index);
+// add on data event to parser. 
+// Every data it receives will be placed in this data argument. 
+parser.on('data', function(data) {
+    
+    console.log('Received data from port: ' + data);
+    
+    io.emit('data', data);
+    
 });
 
-
+app.listen(3000);
