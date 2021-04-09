@@ -7,7 +7,25 @@
 
      <!-- include socket libary -->
      <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
+   
+
+    <script>
         
+    // receives messages using socket libary.
+    var socket = io();
+
+    // when data-event happens, data-function runs.
+    socket.on('data', function(data) {
+        
+        console.log(data);
+        
+        document.getElementById('square').style.opacity = data+"%"; 
+
+    });
+    
+    </script>
+
+    
     <style>
                     #square {
                 background-color: limegreen;
@@ -24,22 +42,6 @@
     <h1>Communicating from an Arduino to Node.js</h1>
 
     <!-- This square changes when Arduino is being used.    -->
-    <div id="square"></div>
-    
-    <script>
-        
-    // receives messages using socket libary.
-    var socket = io();
-
-    // when data-event happens, data-function runs.
-    socket.on('data', function(data) {
-        
-        console.log(data);
-        
-        document.getElementById('square').style.opacity = data+"%"; 
-
-    });
-    
-    </script>
+    <div id="square"></div> 
 </body>
 </html>

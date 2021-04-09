@@ -37,7 +37,7 @@ port.pipe(parser);
 // Create server called 'app'.
 var app = http.createServer(function(req, res) {
 
-    // returns value and context index.html-file.
+    // returns value and context index.html-file. 
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end(index);
 });
@@ -45,6 +45,7 @@ var app = http.createServer(function(req, res) {
 
 // io connection-setup.
 var io = require('socket.io').listen(app);
+// var io = require('socket.io')(app); 
 
 // wait for connection event.
 io.on('connection', function(socket) {
@@ -65,3 +66,4 @@ parser.on('data', function(data) {
 });
 
 app.listen(3000);
+
